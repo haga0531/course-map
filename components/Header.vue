@@ -13,7 +13,7 @@
 
     <el-dialog title="チュートリアルを投稿する" :visible.sync="dialogFormVisible">
       <el-form :model="form">
-        <el-form-item label="画像">
+        <el-form-item label="画像 (必須)">
             <div class="flex justify-center">
               <img :src="form.image" class="uploaded-image">
             </div>
@@ -26,24 +26,24 @@
               <el-button size="small" type="primary">画像をアップロードする</el-button>
             </el-upload>
         </el-form-item>
-        <el-form-item label="チュートリアル名">
+        <el-form-item label="チュートリアル名 (必須)">
           <el-input v-model="form.title" autocomplete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="説明">
+        <el-form-item label="説明 (任意)">
           <el-input v-model="form.description" autocomplete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="チュートリアルURL">
+        <el-form-item label="チュートリアルURL (必須)">
           <el-input v-model="form.link" autocomplete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="ジャンルタグ"><br>
-          <v-select :options="options" v-model="form.selected" multiple placeholder="タグを入力"></v-select>
+        <el-form-item label="ジャンルタグ (必須)"><br>
+          <v-select :options="options" v-model="form.selected" multiple placeholder="タグを入力 (例:その他)"></v-select>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="addTutorial">投稿する</el-button>
+        <el-button type="primary" @click="addTutorial" :disabled="isDisabled">投稿する</el-button>
         <el-button @click="cancel">キャンセル</el-button>
       </span>
     </el-dialog>
@@ -88,6 +88,9 @@ export default {
   computed: {
     isAuthenticated () {
       return this.$store.getters['auth/isAuthenticated']
+    },
+    isDisabled () {
+      return !this.form.title || !this.form.link || !this.form.image || !this.form.selected.length
     }
   },
   methods: {
