@@ -9,13 +9,28 @@
 
 <script>
 import Header from '@/components/Header'
+import { auth, db } from '@/plugins/firebase'
 
 export default {
   components: {
     Header
   },
-  created () {
+  mounted () {
     this.$store.dispatch('tutorials/fetchTutorials')
+
+    auth.onAuthStateChanged(user => {
+      const { uid, displayName, photoURL} = user
+      if (user) {
+        this.$store.dispatch('auth/setUser', { uid, displayName, photoURL})
+        db.collection('users').doc(uid).set({
+          uid: uid,
+          displayName: displayName,
+          photoURL: photoURL
+        })
+      } else {
+        this.$store.dispatch('auth/setUser', null)
+      }
+    })
   }
 }
 </script>

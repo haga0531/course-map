@@ -23,7 +23,8 @@ export const actions = {
         title: doc.data().title,
         description: doc.data().description,
         link: doc.data().link,
-        image: doc.data().image
+        image: doc.data().image,
+        categories: doc.data().categories
       })
     })
     commit('FETCH_TUTORIAL', tutorials)
