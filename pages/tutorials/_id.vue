@@ -7,6 +7,9 @@
         <div class="module-spacer" />
         <p>{{tutorial.description}}</p>
         <div class="module-spacer" />
+        <p v-if="tutorial.fee">{{tutorial.fee}}</p>
+        <p v-else>無料</p>
+        <div class="module-spacer" />
         <el-tag type="info" v-for="category in tutorial.categories" :key="category.name">
           {{ category }}
         </el-tag>

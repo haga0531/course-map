@@ -16,7 +16,7 @@ export const mutations = {
 export const actions = {
   async fetchTutorials ({ commit }) {
     const tutorials = []
-    const querySnapshot = await db.collection('tutorials').get()
+    const querySnapshot = await db.collection('tutorials').orderBy('created_at', 'desc').get()
     querySnapshot.forEach(doc => {
       tutorials.push({
         id: doc.id,
@@ -24,13 +24,16 @@ export const actions = {
         description: doc.data().description,
         link: doc.data().link,
         image: doc.data().image,
-        categories: doc.data().categories
+        fee: doc.data().fee,
+        categories: doc.data().categories,
+        created_at: new Date().getTime(),
+        likeCount: 0
       })
     })
     commit('FETCH_TUTORIAL', tutorials)
   },
   async addTutorial ({ commit }, tutorialContent) {
-    const data = await db.collection('tutorials').add(tutorialContent)
+    await db.collection('tutorials').add(tutorialContent)
     commit('ADD_TUTORIAL', tutorialContent)
   }
 }

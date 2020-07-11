@@ -38,6 +38,10 @@
           <el-input v-model="form.link" autocomplete="off"></el-input>
         </el-form-item>
 
+        <el-form-item label="料金 (任意)">
+          <el-input v-model="form.fee" autocomplete="off" placeholder="デフォルトで「無料」が入ります"></el-input>
+        </el-form-item>
+
         <el-form-item label="ジャンルタグ (必須)"><br>
           <v-select :options="options" v-model="form.selected" multiple placeholder="タグを入力 (例:その他)"></v-select>
         </el-form-item>
@@ -75,7 +79,8 @@ export default {
         link: '',
         image: '',
         selected: '',
-        categories: categories
+        categories: categories,
+        fee: ''
       },
       auth: {
         name: '',
@@ -108,13 +113,17 @@ export default {
         description: this.form.description,
         link: this.form.link,
         image: this.form.image,
-        categories: this.form.selected
+        categories: this.form.selected,
+        fee: this.form.fee,
+        created_at: new Date().getTime(),
+        likeCount: 0
       }
       await this.$store.dispatch('tutorials/addTutorial', content)
       this.form.title = ''
       this.form.description = ''
       this.form.link = ''
       this.form.image = ''
+      this.form.fee = ''
       this.form.selected = ''
       this.dialogFormVisible = false
       this.$router.push('/')
@@ -124,6 +133,7 @@ export default {
       this.form.description = ''
       this.form.link = ''
       this.form.image = ''
+      this.form.fee = ''
       this.form.selected = ''
       this.dialogFormVisible = false
     },
