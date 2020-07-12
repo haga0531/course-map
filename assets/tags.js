@@ -1,15 +1,23 @@
 const tags = [
-  'Javascript',
-  'CSS',
-  'HTML',
-  'Ruby',
-  'Rails',
+  'Javascript/TypeScript',
+  'コンテナ',
+  'クラウド',
+  'HTML/CSS',
+  'Ruby/Rails',
+  'PHP/Laravel',
+  'Python',
+  'C/C++',
+  'C#',
+  'Go',
   'Swift',
+  'Kotlin',
   'Java',
   'Git',
   'SQL',
   'Vue.js',
   'React.js',
+  'UNIX (Linux)',
+  'ネットワーク',
   'その他'
 ]
 

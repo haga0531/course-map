@@ -1,17 +1,17 @@
 <template>
   <div>
     <el-menu class="el-menu-demo" mode="horizontal" v-if="isAuthenticated">
-      <el-menu-item><nuxt-link to="/">Tutorial Map</nuxt-link></el-menu-item>
+      <el-menu-item style="font-size: 20px"><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
       <el-menu-item class="nav-menu_right" @click="logout">ログアウト</el-menu-item>
       <el-menu-item class="nav-menu_right" @click="dialogFormVisible = true">投稿する</el-menu-item>
     </el-menu>
 
     <el-menu class="el-menu-demo" mode="horizontal" v-else>
-      <el-menu-item><nuxt-link to="/">Tutorial Map</nuxt-link></el-menu-item>
+      <el-menu-item><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
       <el-menu-item class="nav-menu_right" @click="dialogAuthVisible = true">ログイン</el-menu-item>
     </el-menu>
 
-    <el-dialog title="チュートリアルを投稿する" :visible.sync="dialogFormVisible">
+    <el-dialog title="コースを投稿する" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="画像 (必須)">
             <div class="flex justify-center">
@@ -26,20 +26,31 @@
               <el-button size="small" type="primary">画像をアップロードする</el-button>
             </el-upload>
         </el-form-item>
-        <el-form-item label="チュートリアル名 (必須)">
-          <el-input v-model="form.title" autocomplete="off"></el-input>
+        <el-form-item label="コース名 (必須)">
+          <el-input v-model="form.title" autocomplete="off" placeholder="Railsチュートリアル"></el-input>
         </el-form-item>
 
         <el-form-item label="説明 (任意)">
-          <el-input v-model="form.description" autocomplete="off"></el-input>
+          <el-input v-model="form.description" autocomplete="off" type="textarea" :rows="rows" placeholder="めっちゃむずい"></el-input>
         </el-form-item>
 
-        <el-form-item label="チュートリアルURL (必須)">
-          <el-input v-model="form.link" autocomplete="off"></el-input>
+        <el-form-item label="コースURL (必須)">
+          <el-input v-model="form.link" autocomplete="off" placeholder="https://railstutorial.jp/"></el-input>
         </el-form-item>
 
         <el-form-item label="料金 (任意)">
           <el-input v-model="form.fee" autocomplete="off" placeholder="デフォルトで「無料」が入ります"></el-input>
+        </el-form-item>
+
+        <el-form-item label="言語 (任意)">
+          <el-select v-model="form.language" placeholder="日本語">
+            <el-option
+              v-for="item in langOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
 
         <el-form-item label="ジャンルタグ (必須)"><br>
@@ -80,14 +91,25 @@ export default {
         image: '',
         selected: '',
         categories: categories,
-        fee: ''
+        fee: '',
+        language: ''
       },
       auth: {
         name: '',
         email: '',
         password: ''
       },
-      options: tags
+      options: tags,
+      langOptions: [{
+          value: '日本語',
+          label: '日本語'
+        }, {
+          value: '英語',
+          label: '英語'
+        }, {
+          value: 'それ以外',
+          label: 'それ以外'
+        }]
     }
   },
   computed: {
@@ -96,6 +118,11 @@ export default {
     },
     isDisabled () {
       return !this.form.title || !this.form.link || !this.form.image || !this.form.selected.length
+    },
+    rows () {
+      const line = this.form.description.match(/\n/g)
+      if (line == null) return 5
+      return Math.max(line.length + 1, 5)
     }
   },
   methods: {
@@ -115,6 +142,7 @@ export default {
         image: this.form.image,
         categories: this.form.selected,
         fee: this.form.fee,
+        language: this.form.language,
         created_at: new Date().getTime(),
         likeCount: 0
       }
@@ -124,6 +152,7 @@ export default {
       this.form.link = ''
       this.form.image = ''
       this.form.fee = ''
+      this.form.language = ''
       this.form.selected = ''
       this.dialogFormVisible = false
       this.$router.push('/')
@@ -134,6 +163,7 @@ export default {
       this.form.link = ''
       this.form.image = ''
       this.form.fee = ''
+      this.form.language = ''
       this.form.selected = ''
       this.dialogFormVisible = false
     },

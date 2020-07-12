@@ -16,7 +16,7 @@ export default {
     Header
   },
   mounted () {
-    this.$store.dispatch('tutorials/fetchTutorials')
+    // this.$store.dispatch('tutorials/fetchTutorials')
 
     auth.onAuthStateChanged(user => {
       const { uid, displayName, photoURL} = user
@@ -68,6 +68,10 @@ a {
 }
 
 .main {
-  padding: 100px 0;
+  padding: 50px 0;
+}
+
+.vs__actions {
+  display: none !important;
 }
 </style>

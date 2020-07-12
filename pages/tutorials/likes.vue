@@ -1,7 +1,7 @@
 <template>
   <section class="section-wrap">
     <div class="grid_row action-box">
-      <nuxt-link to="/tutorials/likes">いいね順</nuxt-link>
+      <nuxt-link to="/">新着順</nuxt-link>
       <el-input
         placeholder="Keyword..."
         prefix-icon="el-icon-search"
@@ -33,7 +33,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('tutorials/fetchTutorials')
+    this.$store.dispatch('tutorials/fetchLikeTutorials')
   },
   computed: {
     tutorials () {

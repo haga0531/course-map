@@ -2,7 +2,7 @@
   <el-card shadow="hover" class="card">
       <el-button class="star-icon likedButton" v-if="beLiked" @click="disLike">
         <i class="el-icon-caret-top" style="color: red;"/>
-        <span class="icon-number" style="color: red;">{{ likeCount }}</span>
+        <span class="icon-number" style="color: #e43f5a;">{{ likeCount }}</span>
       </el-button>
       <el-button class="star-icon" v-else @click="like">
         <i class="el-icon-caret-top"/>
@@ -14,7 +14,7 @@
         <span>{{ tutorial.title }}</span>
       </div>
       <div class="card-box">
-        <el-tag type="info" v-for="category in tutorial.categories" :key="category.name">
+        <el-tag v-for="category in tutorial.categories" :key="category.name">
           {{ category }}
         </el-tag>
       </div>
@@ -47,6 +47,10 @@ export default {
   },
   methods: {
     async like () {
+      if (!this.currentUser) {
+        alert('ログインしてね！')
+        return
+      }
       await this.likeRef.doc(this.currentUser.uid).set({ uid: this.currentUser.uid })
       await db.collection('tutorials').doc(this.tutorial.id).update({
         likeCount: this.likeCount
@@ -75,6 +79,11 @@ export default {
   position: relative;
 }
 
+.image {
+  height: 190px;
+  border-radius: 5px;
+}
+
 .star-icon {
   position: absolute;
   top: 10px;
@@ -86,7 +95,7 @@ export default {
 }
 
 .likedButton {
-  border-color: red;
+  border-color: #e43f5a;
 }
 
 .el-icon-caret-top + span {
@@ -105,12 +114,21 @@ export default {
 .el-tag {
   border-radius: 30px !important;
   margin-right: .5rem;
+  background-color: #fff;
+  border-color: #e9e9eb;
 }
 
 @media screen and (max-width: 768px){
   .card {
     margin: 8px;
     width: calc(50% - 16px);
+  }
+}
+
+@media screen and (max-width: 414px){
+  .card {
+    margin: 8px;
+    width: calc(100% - 16px);
   }
 }
 </style>

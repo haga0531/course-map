@@ -25,6 +25,26 @@ export const actions = {
         link: doc.data().link,
         image: doc.data().image,
         fee: doc.data().fee,
+        language: doc.data().language,
+        categories: doc.data().categories,
+        created_at: new Date().getTime(),
+        likeCount: 0
+      })
+    })
+    commit('FETCH_TUTORIAL', tutorials)
+  },
+  async fetchLikeTutorials ({ commit }) {
+    const tutorials = []
+    const querySnapshot = await db.collection('tutorials').orderBy('likeCount', 'desc').get()
+    querySnapshot.forEach(doc => {
+      tutorials.push({
+        id: doc.id,
+        title: doc.data().title,
+        description: doc.data().description,
+        link: doc.data().link,
+        image: doc.data().image,
+        fee: doc.data().fee,
+        language: doc.data().language,
         categories: doc.data().categories,
         created_at: new Date().getTime(),
         likeCount: 0

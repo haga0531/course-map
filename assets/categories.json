@@ -1,11 +1,7 @@
 [
   {
     "checked": false,
-    "value": "HTML"
-  },
-  {
-    "checked": false,
-    "value": "CSS"
+    "value": "HTML/CSS"
   },
   {
     "checked": false,
@@ -13,11 +9,31 @@
   },
   {
     "checked": false,
-    "value": "Rails"
+    "value": "PHP"
   },
   {
     "checked": false,
-    "value": "Javascript"
+    "value": "Python"
+  },
+  {
+    "checked": false,
+    "value": "C/C++"
+  },
+  {
+    "checked": false,
+    "value": "C#"
+  },
+  {
+    "checked": false,
+    "value": "Go"
+  },
+  {
+    "checked": false,
+    "value": "Java"
+  },
+  {
+    "checked": false,
+    "value": "Javascript/TypeSctipt"
   },
   {
     "checked": false,
@@ -33,7 +49,7 @@
   },
   {
     "checked": false,
-    "value": "Java"
+    "value": "Kotlin"
   },
   {
     "checked": false,
@@ -42,6 +58,34 @@
   {
     "checked": false,
     "value": "SQL"
+  },
+  {
+    "checked": false,
+    "value": "コンテナ"
+  },
+  {
+    "checked": false,
+    "value": "クラウド"
+  },
+  {
+    "checked": false,
+    "value": "UNIX (Linux)"
+  },
+  {
+    "checked": false,
+    "value": "ネットワーク"
+  },
+  {
+    "checked": false,
+    "value": "デザイン"
+  },
+  {
+    "checked": false,
+    "value": "VBA"
+  },
+  {
+    "checked": false,
+    "value": "コンピュータサイエンス"
   },
   {
     "checked": false,
