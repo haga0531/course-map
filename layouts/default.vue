@@ -16,8 +16,7 @@ export default {
     Header
   },
   mounted () {
-    // this.$store.dispatch('tutorials/fetchTutorials')
-
+    this.$store.dispatch('tutorials/fetchTutorials')
     auth.onAuthStateChanged(user => {
       const { uid, displayName, photoURL} = user
       if (user) {

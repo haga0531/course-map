@@ -1,7 +1,10 @@
 <template>
   <section class="section-wrap">
     <div class="grid_row action-box">
-      <nuxt-link to="/tutorials/likes">いいね順</nuxt-link>
+      <select v-model="type">
+        <option value="created_at">新着順</option>
+        <option value="likeCount">いいね順</option>
+      </select>
       <el-input
         placeholder="Keyword..."
         prefix-icon="el-icon-search"
@@ -28,12 +31,10 @@ export default {
   },
   data () {
     return {
+      type: 'created_at',
       categories: categories,
       keyword: ''
     }
-  },
-  created () {
-    this.$store.dispatch('tutorials/fetchTutorials')
   },
   computed: {
     tutorials () {
@@ -46,6 +47,11 @@ export default {
           && 
           (this.selectedCheckboxes.every(val => tutorial.categories.indexOf(val) >= 0))
         )
+      }).sort((a,b) => {
+        if (this.type == "created_at") {
+          return a.created_at - b.created_at
+        }
+          return b.likeCount - a.likeCount
       })
     },
     selectedCheckboxes () {
