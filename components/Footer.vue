@@ -1,10 +1,10 @@
 <template>
   <div class="footer">
     <div class="footer-nav">
-      <a class="footer-nav-item">Cource Mapについて</a>
-      <a class="footer-nav-item">お問い合わせ</a>
-      <a class="footer-nav-item">利用規約</a>
-      <a class="footer-nav-item">プライバシーポリシー</a>
+      <a class="footer-nav-item"><nuxt-link to="/about">Course Mapについて</nuxt-link></a>
+      <a class="footer-nav-item"><nuxt-link to="/contacts">お問い合わせ</nuxt-link></a>
+      <a class="footer-nav-item"><nuxt-link to="/rules">利用規約</nuxt-link></a>
+      <a class="footer-nav-item"><nuxt-link to="/privacy">プライバシーポリシー</nuxt-link></a>
     </div>
     <div class="copyright-box">
       &copy;2020 Cource Map All Rights Reserved.
