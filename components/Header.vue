@@ -5,10 +5,10 @@
       <el-menu-item class="nav-menu_right" style="color: #303133;" @click="logout"><i class="el-icon-setting" style="color: #303133;"></i>ログアウト</el-menu-item>
       <el-menu-item class="nav-menu_right" @click="dialogFormVisible = true" style="color: #303133;"><i class="el-icon-edit" style="color: #303133;"></i>投稿する</el-menu-item>
     </el-menu>
-
+  
     <el-menu class="el-menu-demo" mode="horizontal" v-else>
       <el-menu-item><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
-      <el-menu-item class="nav-menu_right" @click="dialogAuthVisible = true" style="color: #303133;"><i class="el-icon-setting" style="color: #303133;"></i>ログイン</el-menu-item>
+      <el-menu-item class="nav-menu_right" @click="dialogAuthVisible = true" style="color: #303133;"><i class="el-icon-setting" style="color: #303133;"> ログイン</i></el-menu-item>
     </el-menu>
 
     <el-dialog title="コースを投稿する" :visible.sync="dialogFormVisible">
@@ -66,9 +66,6 @@
 
     <el-dialog title="ユーザー認証" :visible.sync="dialogAuthVisible" width="30%">
       <el-button @click="googleLogin">Google</el-button>
-      <el-button>Twitter</el-button>
-      <el-button>Facebook</el-button>
-      <p>ログイン方法を選んでください。</p>
     </el-dialog>
   </div>
 </template>
@@ -201,5 +198,11 @@ export default {
   margin-left: 0 !important;
   width: 100%;
   margin: 10px 0;
+}
+
+@media screen and (max-width: 620px){
+  .nav-menu_right {
+    width: 100%;
+  }
 }
 </style>
