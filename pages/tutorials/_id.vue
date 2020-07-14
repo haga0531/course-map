@@ -1,5 +1,5 @@
 <template>
-  <section class="section-wrap">
+  <section class="section-wrap detail-page">
     <div class="grid_row">
       <img :src="tutorial.image" class="image" />
       <div class="box">
@@ -45,6 +45,10 @@ export default {
   padding: 0 1rem;
   text-align: center;
   width: 100%;
+}
+
+.detail-page {
+  padding-top: 90px;
 }
 
 .grid_row {

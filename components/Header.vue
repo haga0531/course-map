@@ -1,14 +1,14 @@
 <template>
   <div>
     <el-menu class="el-menu-demo" mode="horizontal" v-if="isAuthenticated">
-      <el-menu-item style="font-size: 20px"><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
-      <el-menu-item class="nav-menu_right" @click="logout">ログアウト</el-menu-item>
-      <el-menu-item class="nav-menu_right" @click="dialogFormVisible = true">投稿する</el-menu-item>
+      <el-menu-item style="font-size: 20px; font-weight: bold; color: #303133;"><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
+      <el-menu-item class="nav-menu_right" style="color: #303133;" @click="logout"><i class="el-icon-setting" style="color: #303133;"></i>ログアウト</el-menu-item>
+      <el-menu-item class="nav-menu_right" @click="dialogFormVisible = true" style="color: #303133;"><i class="el-icon-edit" style="color: #303133;"></i>投稿する</el-menu-item>
     </el-menu>
 
     <el-menu class="el-menu-demo" mode="horizontal" v-else>
       <el-menu-item><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
-      <el-menu-item class="nav-menu_right" @click="dialogAuthVisible = true">ログイン</el-menu-item>
+      <el-menu-item class="nav-menu_right" @click="dialogAuthVisible = true" style="color: #303133;"><i class="el-icon-setting" style="color: #303133;"></i>ログイン</el-menu-item>
     </el-menu>
 
     <el-dialog title="コースを投稿する" :visible.sync="dialogFormVisible">
@@ -60,6 +60,7 @@
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="addTutorial" :disabled="isDisabled">投稿する</el-button>
         <el-button @click="cancel">キャンセル</el-button>
+        <small style="color: red;">※ 画像、コース名、URL、タグは必須です</small>
       </span>
     </el-dialog>
 

@@ -1,19 +1,22 @@
 <template>
-  <div>
+  <div id="wrapper">
     <Header />
     <div class="main">
       <Nuxt />
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 import { auth, db } from '@/plugins/firebase'
 
 export default {
   components: {
-    Header
+    Header,
+    Footer
   },
   mounted () {
     this.$store.dispatch('tutorials/fetchTutorials')
@@ -61,13 +64,19 @@ html {
   margin: 0;
 }
 
+body, #wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 a {
   color: black;
   text-decoration: none;
 }
 
 .main {
-  padding: 50px 0;
+  margin-bottom: 30px;
 }
 
 .vs__actions {
