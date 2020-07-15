@@ -1,14 +1,14 @@
 <template>
   <div>
     <el-menu class="el-menu-demo" mode="horizontal" v-if="isAuthenticated">
-      <el-menu-item style="font-size: 20px; font-weight: bold; color: #303133;"><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
-      <el-menu-item class="nav-menu_right" style="color: #303133;" @click="logout"><i class="el-icon-setting" style="color: #303133;"></i>ログアウト</el-menu-item>
-      <el-menu-item class="nav-menu_right" @click="dialogFormVisible = true" style="color: #303133;"><i class="el-icon-edit" style="color: #303133;"></i>投稿する</el-menu-item>
+      <el-menu-item class="logo-text"><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
+      <el-menu-item class="nav-menu_right" style="color: #303133;" @click="logout"><i class="el-icon-setting" style="color: #303133;"></i><span class="span">ログアウト</span></el-menu-item>
+      <el-menu-item class="nav-menu_right" @click="dialogFormVisible = true" style="color: #303133;"><i class="el-icon-edit" style="color: #303133;"></i><span class="span">投稿する</span></el-menu-item>
     </el-menu>
   
     <el-menu class="el-menu-demo" mode="horizontal" v-else>
-      <el-menu-item><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
-      <el-menu-item class="nav-menu_right" @click="dialogAuthVisible = true" style="color: #303133;"><i class="el-icon-setting" style="color: #303133;"> ログイン</i></el-menu-item>
+      <el-menu-item class="logo-text"><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
+      <el-menu-item class="nav-menu_right" @click="dialogAuthVisible = true" style="color: #303133;"><i class="el-icon-setting" style="color: #303133;"></i>ログイン</el-menu-item>
     </el-menu>
 
     <el-dialog title="コースを投稿する" :visible.sync="dialogFormVisible">
@@ -200,9 +200,24 @@ export default {
   margin: 10px 0;
 }
 
+.logo-text {
+  font-size: 20px; 
+  font-weight: bold; 
+  color: #303133 !important;
+}
+
 @media screen and (max-width: 620px){
   .nav-menu_right {
-    width: 100%;
+    float: none;
+  }
+
+  .el-menu {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .span {
+    display: none;
   }
 }
 </style>

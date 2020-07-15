@@ -89,6 +89,10 @@
   },
   {
     "checked": false,
+    "value": "NoCode"
+  },
+  {
+    "checked": false,
     "value": "その他"
   }
 ]

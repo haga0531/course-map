@@ -18,6 +18,7 @@ const tags = [
   'React.js',
   'UNIX (Linux)',
   'ネットワーク',
+  'NoCode',
   'その他'
 ]
 
