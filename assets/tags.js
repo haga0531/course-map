@@ -19,6 +19,7 @@ const tags = [
   'UNIX (Linux)',
   'ネットワーク',
   'NoCode',
+  'UI/UX',
   'その他'
 ]
 
