@@ -28,58 +28,61 @@
   </div>
 </template>
 
-<script>
-import Card from '@/components/Card'
-import TopImageArea from '@/components/TopImageArea'
-import categories from '@/assets/categories'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import Card from '@/components/Card.vue'
+import { TutorialClass } from '@/store/modules/tutorialType'
+import TopImageArea from '@/components/TopImageArea.vue'
+import { categoryTypes } from '@/store/modules/categories'
+const categories = require('@/assets/categories.json')
 
-export default {
+@Component({
   components: {
     Card,
     TopImageArea
-  },
-  data () {
-    return {
-      type: 'created_at',
-      categories: categories,
-      keyword: '',
-      count: 18
-    }
-  },
-  computed: {
-    tutorials () {
+  }
+})
+export default class Tutorials extends Vue {
+  type: string = 'created_at'
+  categories: any = categories
+  keyword: string = ''
+  count: number = 18
+
+
+  get tutorials () {
       return this.$store.state.tutorials.tutorials
-    },
-    displayTutorialList () {
+  }
+    
+  get displayTutorialList () {
       return this.filterdTutorialList.slice(0, this.count)
-    },
-    filterdTutorialList () {
-      return this.tutorials.filter(tutorial => {
+  }
+    
+  get filterdTutorialList () {
+      return this.tutorials.filter((tutorial: TutorialClass) => {
         return (
           (tutorial.title.indexOf(this.keyword) !== -1 || tutorial.description.indexOf(this.keyword) !== -1)
           && 
-          (this.selectedCheckboxes.every(val => tutorial.categories.indexOf(val) >= 0))
+          (this.selectedCheckboxes.every((val: any) => tutorial.categories.indexOf(val) >= 0))
         )
-      }).sort((a,b) => {
+      }).sort((a: TutorialClass, b: TutorialClass) => {
         if (this.type == "created_at") {
           return a.created_at - b.created_at
         }
           return b.likeCount - a.likeCount
       })
-    },
-    selectedCheckboxes () {
-			const filters = []
-      const checkedBoxes = this.categories.filter(category => category.checked)
-			checkedBoxes.forEach(element => {
+  }
+    
+  get selectedCheckboxes () {
+			const filters: categoryTypes[] = []
+      const checkedBoxes = this.categories.filter((category: categoryTypes) => category.checked)
+			checkedBoxes.forEach((element: any) => {
 				filters.push(element.value)
       })
 			return filters
-		}
-  },
-  methods: {
-    showMore () {
-      this.count += 18
-    }
+	}
+
+  showMore () {
+    this.count += 18
   }
 }
 </script>

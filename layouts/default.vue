@@ -8,26 +8,29 @@
   </div>
 </template>
 
-<script>
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
 import { auth, db } from '@/plugins/firebase'
+import { UserClass } from '@/store/modules/userTypes'
 
-export default {
+@Component({
   components: {
     Header,
     Footer
-  },
+  }
+})
+export default class Default extends Vue {
   mounted () {
     this.$store.dispatch('tutorials/fetchTutorials')
     auth.onAuthStateChanged(user => {
-      const { uid, displayName, photoURL} = user
       if (user) {
-        this.$store.dispatch('auth/setUser', { uid, displayName, photoURL})
-        db.collection('users').doc(uid).set({
-          uid: uid,
-          displayName: displayName,
-          photoURL: photoURL
+        this.$store.dispatch('auth/setUser', new UserClass(user.displayName, user.photoURL, user.uid))
+        db.collection('users').doc(user.uid).set({
+          uid: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL
         })
       } else {
         this.$store.dispatch('auth/setUser', null)

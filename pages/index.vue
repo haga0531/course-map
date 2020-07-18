@@ -4,12 +4,15 @@
   </main>
 </template>
 
-<script>
-import Tutorials from '@/layouts/Tutorials'
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import Tutorials from '@/layouts/Tutorials.vue'
 
-export default {
+@Component({
   components: {
     Tutorials
   }
+})
+export default class Index extends Vue {
 }
 </script>

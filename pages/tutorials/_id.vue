@@ -18,22 +18,51 @@
         </el-tag>
         <div class="module-spacer-big" />
         <a :href="tutorial.link"><el-button type="primary" icon="el-icon-link">サイトにいく</el-button></a>
+        <div class="module-spacer-mini" />
+        <div v-if="userIsCreator">
+          <span class="deleteButton" @click="centerDialogVisible = true"><i class="el-icon-delete">削除する</i></span>
+        </div>
       </div>
     </div>
+    <el-dialog
+      :title="`${tutorial.title}を削除`"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center>
+      <span>本当に削除しますか？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">キャンセル</el-button>
+        <el-button type="primary" @click="deleteTutorial">削除する</el-button>
+      </span>
+    </el-dialog>
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex'
+import { Tutorial } from '@/store/modules/tutorialType'
 
-export default {
-  computed: {
-    ...mapState({
-      tutorials: state => state.tutorials.tutorials
-    }),
-    tutorial () {
-      return this.tutorials.find(tutorial => tutorial.id === this.$route.params.id) || {}
-    }
+@Component
+export default class _id extends Vue {
+  centerDialogVisible: boolean = false
+
+  get userIsCreator () {
+    return this.$store.state.auth.user.uid === this.tutorial.creatorId
+  }
+
+  get tutorials () {
+    return this.$store.state.tutorials.tutorials
+  }
+
+  get tutorial () {
+    return this.tutorials.find((tutorial: Tutorial) => tutorial.id === this.$route.params.id) || {}
+  }
+
+  async deleteTutorial () {
+    await this.$store.dispatch('tutorials/deleteTutorial', this.tutorial.id)
+    this.centerDialogVisible = false
+    this.$router.push('/')
   }
 }
 </script>
@@ -79,5 +108,10 @@ export default {
 .el-tag {
   border-radius: 30px !important;
   margin-right: .5rem;
+}
+
+.deleteButton {
+  cursor: pointer;
+  border-bottom: 1px solid #1f4068;
 }
 </style>

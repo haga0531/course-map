@@ -70,117 +70,126 @@
   </div>
 </template>
 
-<script>
-import { firebase, storage, auth } from '@/plugins/firebase'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import { firebase, storage, auth } from '@/plugins/firebase.ts'
+import { TutorialClass } from '@/store/modules/tutorialType'
 import tags from '@/assets/tags'
-import categories from '@/assets/categories'
+const categories = require('@/assets/categories.json')
 
-export default {
-  data () {
-    return {
-      dialogTableVisible: false,
-      dialogFormVisible: false,
-      dialogAuthVisible: false,
-      dialogVisible: false,
-      form: {
-        title: '',
-        description: '',
-        link: '',
-        image: '',
-        selected: '',
-        categories: categories,
-        fee: '',
-        language: ''
-      },
-      auth: {
-        name: '',
-        email: '',
-        password: ''
-      },
-      options: tags,
-      langOptions: [{
-          value: '日本語',
-          label: '日本語'
-        }, {
-          value: '英語',
-          label: '英語'
-        }, {
-          value: 'それ以外',
-          label: 'それ以外'
-        }]
+@Component
+export default class Header extends Vue {
+
+    dialogTableVisible: boolean =  false
+    dialogFormVisible: boolean = false
+    dialogAuthVisible: boolean = false
+    dialogVisible: boolean = false
+    form: TutorialClass = {
+      id: '',
+      title: '',
+      description: '',
+      link: '',
+      image: '',
+      selected: '',
+      categories: categories,
+      fee: '',
+      language: '',
+      likeCount: 0,
+      created_at: new Date().getTime(),
+      creatorId: ''
     }
-  },
-  computed: {
-    isAuthenticated () {
-      return this.$store.getters['auth/isAuthenticated']
-    },
-    isDisabled () {
-      return !this.form.title || !this.form.link || !this.form.image || !this.form.selected.length
-    },
-    rows () {
-      const line = this.form.description.match(/\n/g)
-      if (line == null) return 5
-      return Math.max(line.length + 1, 5)
+    auth: object = {
+      name: '',
+      email: '',
+      password: ''
     }
-  },
-  methods: {
-    async uploadFile (data) {
+    options: object = tags
+    langOptions: { value: string, label: string}[] = [{
+        value: '日本語',
+        label: '日本語'
+      }, {
+        value: '英語',
+        label: '英語'
+      }, {
+        value: 'それ以外',
+        label: 'それ以外'
+      }]
+
+  get isAuthenticated () {
+    return this.$store.getters['auth/isAuthenticated']
+  }
+
+  get isDisabled () {
+    return !this.form.title || !this.form.link || !this.form.image || !this.form.selected.length
+  }
+
+  get rows () {
+    const line = this.form.description.match(/\n/g)
+    if (line == null) return 5
+    return Math.max(line.length + 1, 5)
+  }
+
+  async uploadFile (data: any) {
       const storageRef = storage.ref()
       const time = new Date().getTime()
       const ref = storageRef.child(`tutorials/${time}_${data.file.name}`)
       const snapshot = await ref.put(data.file)
       const url = await snapshot.ref.getDownloadURL()
       this.form.image = url
-    },
-    async addTutorial () {
-      const content = {
-        title: this.form.title,
-        description: this.form.description,
-        link: this.form.link,
-        image: this.form.image,
-        categories: this.form.selected,
-        fee: this.form.fee,
-        language: this.form.language,
-        created_at: new Date().getTime(),
-        likeCount: 0
-      }
-      await this.$store.dispatch('tutorials/addTutorial', content)
-      this.form.title = ''
-      this.form.description = ''
-      this.form.link = ''
-      this.form.image = ''
-      this.form.fee = ''
-      this.form.language = ''
-      this.form.selected = ''
-      this.dialogFormVisible = false
-      this.$router.push('/')
-    },
-    cancel () {
-      this.form.title = ''
-      this.form.description = ''
-      this.form.link = ''
-      this.form.image = ''
-      this.form.fee = ''
-      this.form.language = ''
-      this.form.selected = ''
-      this.dialogFormVisible = false
-    },
-    googleLogin () {
-      const provider = new firebase.auth.GoogleAuthProvider()
-      auth.signInWithPopup(provider)
-        .then(res => {
-          this.dialogAuthVisible = false
-          this.$store.dispatch('auth/setUser',res.user)
-        }).catch(e => console.log(e))
-    },
-    logout () {
-      auth.signOut().then(() => {
-        this.$store.dispatch('auth/setUser', null)
-        this.$router.push('/')
-      }).catch(err => {
-        window.alert(err)
-      })
+  }
+
+  async addTutorial () {
+    const content = {
+      title: this.form.title,
+      description: this.form.description,
+      link: this.form.link,
+      image: this.form.image,
+      categories: this.form.selected,
+      fee: this.form.fee,
+      language: this.form.language,
+      created_at: new Date().getTime(),
+      likeCount: 0,
+      creatorId: this.$store.state.auth.user.uid
     }
+    await this.$store.dispatch('tutorials/addTutorial', content)
+    this.form.title = ''
+    this.form.description = ''
+    this.form.link = ''
+    this.form.image = ''
+    this.form.fee = ''
+    this.form.language = ''
+    this.form.selected = ''
+    this.dialogFormVisible = false
+    this.$router.push('/')
+  }
+
+  cancel () {
+    this.form.title = ''
+    this.form.description = ''
+    this.form.link = ''
+    this.form.image = ''
+    this.form.fee = ''
+    this.form.language = ''
+    this.form.selected = ''
+    this.dialogFormVisible = false
+  }
+
+  googleLogin () {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    auth.signInWithPopup(provider)
+      .then(res => {
+        this.dialogAuthVisible = false
+        this.$store.dispatch('auth/setUser',res.user)
+      }).catch(e => console.log(e))
+  }
+
+  logout () {
+    auth.signOut().then(() => {
+      this.$store.dispatch('auth/setUser', null)
+      this.$router.push('/')
+    }).catch(err => {
+      window.alert(err)
+    })
   }
 }
 </script>

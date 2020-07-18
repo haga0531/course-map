@@ -22,52 +22,56 @@
   </el-card>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { db } from '@/plugins/firebase'
+import { TutorialClass } from '@/store/modules/tutorialType'
 
-export default {
-  props: ['tutorial'],
-  data () {
-    return {
-      beLiked: false,
-      likeCount: 0
-    }
-  },
+@Component
+export default class Card extends Vue {
+
+  @Prop()
+  tutorial!: TutorialClass
+
+  beLiked: boolean = false
+  likeCount: number = 0
+
   mounted () {
-    this.likeRef = db.collection('tutorials').doc(this.tutorial.id).collection('likes')
+    const likeRef = db.collection('tutorials').doc(this.tutorial.id).collection('likes')
     this.checkLikeStatus()
-    this.likeRef.onSnapshot(snapshot => {
+    likeRef.onSnapshot(snapshot => {
       this.likeCount = snapshot.size
     })
-  },
-  computed: {
-    currentUser () {
-      return this.$store.state.auth.user
+  }
+
+  get currentUser () {
+    return this.$store.state.auth.user
+  }
+
+  async like () {
+    if (!this.currentUser) {
+      alert('ログインしてね！')
+      return
     }
-  },
-  methods: {
-    async like () {
-      if (!this.currentUser) {
-        alert('ログインしてね！')
-        return
-      }
-      await this.likeRef.doc(this.currentUser.uid).set({ uid: this.currentUser.uid })
-      await db.collection('tutorials').doc(this.tutorial.id).update({
-        likeCount: this.likeCount
-      })
-      this.beLiked = true
-    },
-    async disLike (){
-      await this.likeRef.doc(this.currentUser.uid).delete()
-      await db.collection('tutorials').doc(this.tutorial.id).update({
-        likeCount: this.likeCount
-      })
-      this.beLiked = false
-    },
-    async checkLikeStatus () {
-      const doc = await this.likeRef.doc(this.currentUser.uid).get()
-      this.beLiked = doc.exists
-    }
+    // 40行目のlikeRefで切り出したい
+    await db.collection('tutorials').doc(this.tutorial.id).collection('likes').doc(this.currentUser.uid).set({ uid: this.currentUser.uid })
+    await db.collection('tutorials').doc(this.tutorial.id).update({
+      likeCount: this.likeCount
+    })
+    this.beLiked = true
+  }
+
+  async disLike (){
+    await db.collection('tutorials').doc(this.tutorial.id).collection('likes').doc(this.currentUser.uid).delete()
+    await db.collection('tutorials').doc(this.tutorial.id).update({
+      likeCount: this.likeCount
+    })
+    this.beLiked = false
+  }
+
+  async checkLikeStatus () {
+    const doc = await db.collection('tutorials').doc(this.tutorial.id).collection('likes').doc(this.currentUser.uid).get()
+    this.beLiked = doc.exists
   }
 }
 </script>

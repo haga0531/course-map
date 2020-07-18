@@ -38,7 +38,7 @@ export default {
   */
   plugins: [
     '@/plugins/element-ui',
-    "@/plugins/vue-select.js"
+    "@/plugins/vue-select"
   ],
   /*
   ** Auto import components
@@ -50,6 +50,7 @@ export default {
   */
   buildModules: [
     '@nuxtjs/dotenv',
+    '@nuxt/typescript-build'
   ],
   /*
   ** Nuxt.js modules
@@ -62,5 +63,9 @@ export default {
   */
   build: {
     transpile: [/^element-ui/],
+  },
+  typescript: {
+    typeCheck: true,
+    ignoreNotFoundWarnings: true
   }
 }

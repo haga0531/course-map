@@ -5,6 +5,12 @@
   </div>
 </template>
 
+<script lang="ts">
+import { Vue } from 'vue-property-decorator';
+export default class TopImageArea extends Vue { 
+}
+</script>
+
 <style scoped>
 .main-visual {
   background-image: url("~assets/img/main-visual.jpg");
