@@ -48,6 +48,7 @@ export default class _id extends Vue {
   centerDialogVisible: boolean = false
 
   get userIsCreator () {
+    if (this.$store.state.auth.user == null) return
     return this.$store.state.auth.user.uid === this.tutorial.creatorId
   }
 

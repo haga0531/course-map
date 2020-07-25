@@ -62,6 +62,10 @@ export default class Card extends Vue {
   }
 
   async disLike (){
+    if (!this.currentUser) {
+      alert('ログインしてね！')
+      return
+    }
     await db.collection('tutorials').doc(this.tutorial.id).collection('likes').doc(this.currentUser.uid).delete()
     await db.collection('tutorials').doc(this.tutorial.id).update({
       likeCount: this.likeCount
@@ -70,6 +74,7 @@ export default class Card extends Vue {
   }
 
   async checkLikeStatus () {
+    if (!this.currentUser) return
     const doc = await db.collection('tutorials').doc(this.tutorial.id).collection('likes').doc(this.currentUser.uid).get()
     this.beLiked = doc.exists
   }
