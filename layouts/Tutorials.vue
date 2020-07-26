@@ -142,8 +142,14 @@ export default class Tutorials extends Vue {
 }
 
 .showMoreButton {
-
   width: 100%;
   margin: 30px 16px !important;
+}
+
+@media screen and (max-width: 620px) {
+  .showMoreButton {
+    width: 100%;
+    margin: 0 !important;
+  }
 }
 </style>

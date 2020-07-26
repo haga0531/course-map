@@ -64,7 +64,7 @@
       </span>
     </el-dialog>
 
-    <el-dialog title="ユーザー認証" :visible.sync="dialogAuthVisible" width="30%">
+    <el-dialog title="ユーザー認証" :visible.sync="dialogAuthVisible">
       <el-button @click="googleLogin">Google</el-button>
     </el-dialog>
   </div>
@@ -218,6 +218,10 @@ export default class Header extends Vue {
 @media screen and (max-width: 620px){
   .nav-menu_right {
     float: none;
+  }
+
+  .el-dialog {
+    width: 90% !important;
   }
 
   .el-menu {
