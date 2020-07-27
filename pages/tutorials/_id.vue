@@ -27,7 +27,6 @@
     <el-dialog
       :title="`${tutorial.title}を削除`"
       :visible.sync="centerDialogVisible"
-      width="30%"
       center>
       <span>本当に削除しますか？</span>
       <span slot="footer" class="dialog-footer">

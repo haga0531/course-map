@@ -2,7 +2,7 @@
   <div>
     <el-menu class="el-menu-demo" mode="horizontal" v-if="isAuthenticated">
       <el-menu-item class="logo-text"><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
-      <el-menu-item class="nav-menu_right" style="color: #303133;" @click="logout"><i class="el-icon-setting" style="color: #303133;"></i><span class="span">ログアウト</span></el-menu-item>
+      <el-menu-item class="nav-menu_right" style="color: #303133;" @click="centerDialogVisible = true"><i class="el-icon-setting" style="color: #303133;"></i><span class="span">ログアウト</span></el-menu-item>
       <el-menu-item class="nav-menu_right" @click="dialogFormVisible = true" style="color: #303133;"><i class="el-icon-edit" style="color: #303133;"></i><span class="span">投稿する</span></el-menu-item>
     </el-menu>
   
@@ -11,7 +11,7 @@
       <el-menu-item class="nav-menu_right" @click="dialogAuthVisible = true" style="color: #303133;"><i class="el-icon-setting" style="color: #303133;"></i>ログイン</el-menu-item>
     </el-menu>
 
-    <el-dialog title="コースを投稿する" :visible.sync="dialogFormVisible">
+    <el-dialog title="コースを投稿する" :visible.sync="dialogFormVisible" class="form-dialog">
       <el-form :model="form">
         <el-form-item label="画像 (必須)">
             <div class="flex justify-center">
@@ -67,6 +67,19 @@
     <el-dialog title="ユーザー認証" :visible.sync="dialogAuthVisible">
       <el-button @click="googleLogin">Google</el-button>
     </el-dialog>
+
+    <el-dialog
+      title="ログアウトする"
+      :visible.sync="centerDialogVisible"
+      class="form-dialog"
+      center>
+      <span>本当にログアウトしますか？</span>
+      <p>投稿されたコンテンツは残ります。</p>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">キャンセル</el-button>
+        <el-button type="primary" @click="logout">ログアウトする</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -84,6 +97,8 @@ export default class Header extends Vue {
     dialogFormVisible: boolean = false
     dialogAuthVisible: boolean = false
     dialogVisible: boolean = false
+    centerDialogVisible: boolean = false
+
     form: TutorialClass = {
       id: '',
       title: '',
@@ -219,8 +234,7 @@ export default class Header extends Vue {
   .nav-menu_right {
     float: none;
   }
-
-  .el-dialog {
+  .form-dialog >>> .el-dialog {
     width: 90% !important;
   }
 

@@ -10,7 +10,7 @@
             <el-option value="likeCount" label="評価順">いいね順</el-option>
           </el-select>
           <el-input
-            placeholder="Keyword..."
+            placeholder="Railsチュートリアル ..."
             prefix-icon="el-icon-search"
             v-model="keyword"
             class="search-box">
