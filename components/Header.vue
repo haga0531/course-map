@@ -76,8 +76,8 @@
       <span>本当にログアウトしますか？</span>
       <p>投稿されたコンテンツは残ります。</p>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">キャンセル</el-button>
         <el-button type="primary" @click="logout">ログアウトする</el-button>
+        <el-button @click="centerDialogVisible = false">キャンセル</el-button>
       </span>
     </el-dialog>
   </div>
@@ -193,15 +193,15 @@ export default class Header extends Vue {
     const provider = new firebase.auth.GoogleAuthProvider()
     auth.signInWithPopup(provider)
       .then(res => {
-        this.dialogAuthVisible = false
         this.$store.dispatch('auth/setUser',res.user)
+        this.dialogAuthVisible = false
       }).catch(e => console.log(e))
   }
 
   logout () {
     auth.signOut().then(() => {
       this.$store.dispatch('auth/setUser', null)
-      this.$router.push('/')
+      this.centerDialogVisible = false
     }).catch(err => {
       window.alert(err)
     })
