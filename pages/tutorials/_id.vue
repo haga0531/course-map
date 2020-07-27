@@ -114,4 +114,10 @@ export default class _id extends Vue {
   cursor: pointer;
   border-bottom: 1px solid #1f4068;
 }
+
+@media screen and (max-width: 620px) {
+  .image {
+    width: 100%;
+  }
+}
 </style>
