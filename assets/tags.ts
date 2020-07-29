@@ -3,6 +3,8 @@ const tags = [
   'コンテナ',
   'クラウド',
   'コンピュータサイエンス',
+  '機械学習',
+  'YouTube',
   'HTML/CSS',
   'Ruby/Rails',
   'PHP/Laravel',

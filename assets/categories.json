@@ -93,6 +93,14 @@
   },
   {
     "checked": false,
+    "value": "機械学習"
+  },
+  {
+    "checked": false,
+    "value": "YouTube"
+  },
+  {
+    "checked": false,
     "value": "その他"
   }
 ]

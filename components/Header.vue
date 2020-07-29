@@ -193,8 +193,8 @@ export default class Header extends Vue {
     const provider = new firebase.auth.GoogleAuthProvider()
     auth.signInWithPopup(provider)
       .then(res => {
-        this.$store.dispatch('auth/setUser',res.user)
         this.dialogAuthVisible = false
+        this.$store.dispatch('auth/setUser',res.user)
       }).catch(e => console.log(e))
   }
 
