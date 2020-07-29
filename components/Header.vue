@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-menu class="el-menu-demo" mode="horizontal" v-if="isAuthenticated">
-      <el-menu-item class="logo-text"><nuxt-link to="/">Course Map</nuxt-link></el-menu-item>
+      <el-menu-item><nuxt-link to="/"><h1 class="logo-text">Course Map</h1></nuxt-link></el-menu-item>
       <el-menu-item class="nav-menu_right" style="color: #303133;" @click="centerDialogVisible = true"><i class="el-icon-setting" style="color: #303133;"></i><span class="span">ログアウト</span></el-menu-item>
       <el-menu-item class="nav-menu_right" @click="dialogFormVisible = true" style="color: #303133;"><i class="el-icon-edit" style="color: #303133;"></i><span class="span">投稿する</span></el-menu-item>
     </el-menu>
@@ -224,8 +224,13 @@ export default class Header extends Vue {
   margin: 10px 0;
 }
 
+/* .logo-text {
+  font-weight: bold; 
+  color: #303133 !important;
+} */
+
 .logo-text {
-  font-size: 20px; 
+  font-size: 20px;
   font-weight: bold; 
   color: #303133 !important;
 }
