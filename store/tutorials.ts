@@ -22,7 +22,7 @@ export const actions: ActionTree<TutorialState, RootState> = {
 
   async fetchTutorials ({ commit }) {
     const tutorials: Tutorial[] = []
-    const querySnapshot = await db.collection('tutorials').orderBy('created_at', 'desc').get()
+    const querySnapshot = await db.collection('tutorials').get()
     querySnapshot.forEach(doc => {
       tutorials.push({
         id: doc.id,

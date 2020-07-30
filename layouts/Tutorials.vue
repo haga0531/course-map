@@ -66,7 +66,7 @@ export default class Tutorials extends Vue {
         )
       }).sort((a: TutorialClass, b: TutorialClass) => {
         if (this.type == "created_at") {
-          return a.created_at - b.created_at
+          return b.created_at - a.created_at
         }
           return b.likeCount - a.likeCount
       })
