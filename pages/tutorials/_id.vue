@@ -18,7 +18,7 @@
         </el-tag>
         <div class="module-spacer-big" />
         <div class="sns">
-          <a :href="tutorial.link"><el-button type="primary" icon="el-icon-link">サイトにいく</el-button></a>
+          <a :href="tutorial.link" target="_brank"><el-button type="primary" icon="el-icon-link">サイトにいく</el-button></a>
           <div class="social-button">
             <a :href="twitterURL" class="social-button social-button-tw" target="_blank" rel="nofollow">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 350 300">
