@@ -3,11 +3,11 @@
     <TopImageArea />
     <section class="section-wrap">
       <div class="grid_row action-box">
-        <div class="form-title">検索</div>
+        <div class="form-title">絞り込み</div>
         <div class="action_without-tags">
           <el-select v-model="type" placeholder="新着順">
             <el-option value="created_at" label="新着順">新着順</el-option>
-            <el-option value="likeCount" label="評価順">いいね順</el-option>
+            <el-option value="likeCount" label="評価順">評価順</el-option>
           </el-select>
           <el-input
             placeholder="Railsチュートリアル ..."
