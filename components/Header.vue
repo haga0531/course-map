@@ -167,6 +167,13 @@ export default class Header extends Vue {
       creatorId: this.$store.state.auth.user.uid
     }
     await this.$store.dispatch('tutorials/addTutorial', content)
+    this.$store.commit('successMessage/SET_SUCCESS_MESSAGE', {
+      status: true,
+      message: '投稿しました'
+    })
+    setTimeout(() => {
+      this.$store.commit('successMessage/SET_SUCCESS_MESSAGE', {})
+    }, 2000)
     this.form.title = ''
     this.form.description = ''
     this.form.link = ''
@@ -194,6 +201,13 @@ export default class Header extends Vue {
     auth.signInWithPopup(provider)
       .then(res => {
         this.dialogAuthVisible = false
+        this.$store.commit('successMessage/SET_SUCCESS_MESSAGE', {
+          status: true,
+          message: 'ログインしました'
+        })
+        setTimeout(() => {
+          this.$store.commit('successMessage/SET_SUCCESS_MESSAGE', {})
+        }, 2000)
         this.$store.dispatch('auth/setUser',res.user)
       }).catch(e => console.log(e))
   }
@@ -202,6 +216,13 @@ export default class Header extends Vue {
     auth.signOut().then(() => {
       this.$store.dispatch('auth/setUser', null)
       this.centerDialogVisible = false
+      this.$store.commit('successMessage/SET_SUCCESS_MESSAGE', {
+          status: true,
+          message: 'ロアウトしました'
+        })
+        setTimeout(() => {
+          this.$store.commit('successMessage/SET_SUCCESS_MESSAGE', {})
+        }, 2000)
     }).catch(err => {
       window.alert(err)
     })

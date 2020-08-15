@@ -2,6 +2,7 @@
   <div id="wrapper">
     <Header />
     <div class="main">
+      <success-message/>
       <Nuxt />
     </div>
     <Footer />
@@ -14,11 +15,13 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { auth, db } from '@/plugins/firebase'
 import { UserClass } from '@/store/modules/userTypes'
+import SuccessMessage from '@/components/SuccessMessage.vue'
 
 @Component({
   components: {
     Header,
-    Footer
+    Footer,
+    SuccessMessage
   }
 })
 export default class Default extends Vue {
