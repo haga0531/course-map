@@ -59,8 +59,9 @@ export default class Tutorials extends Vue {
     
   get filterdTutorialList () {
       return this.tutorials.filter((tutorial: TutorialClass) => {
+        const reg = new RegExp(this.keyword, 'i')
         return (
-          (tutorial.title.indexOf(this.keyword) !== -1 || tutorial.description.indexOf(this.keyword) !== -1)
+          (!tutorial.title.search(reg) || !tutorial.description.search(reg))
           && 
           (this.selectedCheckboxes.every((val: any) => tutorial.categories.indexOf(val) >= 0))
         )
