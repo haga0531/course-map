@@ -15,7 +15,7 @@
     "element-ui": "^2.13.2",
     "firebase": "^7.15.5",
     "node-sass": "^4.14.1",
-    "nuxt": "^2.13.0",
+    "nuxt": "^2.17.3",
     "sass-loader": "^9.0.2",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.0.0",
